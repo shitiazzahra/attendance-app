@@ -24,36 +24,26 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  margin: const EdgeInsets.all(10),
-                  child: Expanded(
-                    child: InkWell(
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AttendanceScreen()));
-                      },
-                      child: const Column(
-                        children: [
-                          Image(
-                            image: AssetImage('/assets/images/ic_attend.png'),
-                            height: 100,
-                            width: 100,
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            "Attendance Report",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold
-                            ),
-                          )
-                        ],
-                      ),
-                    )
+                _buildMenuItem(
+                  context,
+                  imangePath: '/assets/images/ic_attend.png',
+                  label: 'Attendance Report', 
+                  destination: const AttendanceScreen(),
                   ),
-                ),
-                const SizedBox(height: 40)
+                const SizedBox(height: 40),
+                _buildMenuItem(
+                  context,
+                  imangePath: '/assets/images/ic_permission.png',
+                  label: 'Permission Report', 
+                  destination: const AttendanceScreen(),
+                  ),
+                  const SizedBox(height: 40),
+                  _buildMenuItem(
+                  context,
+                  imangePath: '/assets/images/ic_attendance_history.png',
+                  label: 'History Report', 
+                  destination: const AttendanceScreen(),
+                  ),
               ],
             )
           ),
@@ -62,12 +52,52 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildMenuItem(
+    BuildContext context, {
+      required String imangePath, 
+      required String label,
+      // pake widget karena ini pendefinisian untuk ngarahin mau kemana nya
+      required Widget destination
+    }) {
+    return Container(
+                margin: const EdgeInsets.all(10),
+                child: Expanded(
+                  child: InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => destination));
+                    },
+                    child: Column(
+                      children: [
+                        Image(
+                          image: AssetImage(imangePath),
+                          height: 100,
+                          width: 100,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          label,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ),
+              );
+  }
+
   Future<bool> _onWillPop(BuildContext context) async{
+    // showDialog itu harus hasilin value itu bisa yes/no
     return (await showDialog(
       // ini biar gabisa hilang pop up nya
       barrierDismissible: false,
       context: context,
       builder: (context) =>
+      // ini kondisi true yg nampilin yes or no nya
       AlertDialog(
         title: const Text(
           "Information",
@@ -110,6 +140,9 @@ class HomeScreen extends StatelessWidget {
           ],
         )
       )
-    );
+      // ini kondisi false 
+      // ini adalah default value ketika semua kode yg ada di
+      // block Alert tidak tereksekusi semua
+    ) ?? false;
   }
 }
