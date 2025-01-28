@@ -28,13 +28,13 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
   @override
   void initState() {
-    handleLocationPermission();
-    setDateTime();
-    setAttendStatus();
+    //handleLocationPermission();
+    //setDateTime();
+    //setAttendStatus();
 
     if (image != null) {
       isLoading = true;
-      getGeoLocationPosition();
+      //getGeoLocationPosition();
     }
   }
 
