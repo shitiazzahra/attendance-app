@@ -59,9 +59,34 @@ Future<void> submitAttendanceReport(BuildContext context, String address, String
               ),
             )
           ],
-        )
+        ),
+        backgroundColor: Colors.blueAccent,
+        shape: const StadiumBorder(),
+        behavior: SnackBarBehavior.floating
       ));
     }
+  }).catchError((error) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Row(
+        children: [
+          const Icon(
+            Icons.error_outline,
+            color: Colors.white
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              "Ups, $error",
+              style: const TextStyle(color: Colors.white),
+            ),
+          )
+        ],
+      ),
+      backgroundColor: Colors.blueAccent,
+      shape: const StadiumBorder(),
+      behavior: SnackBarBehavior.floating,
+    ));
+    Navigator.of(context).pop();
   });
 }
 
