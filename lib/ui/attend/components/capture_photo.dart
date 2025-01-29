@@ -31,7 +31,7 @@ Padding buildCapturePhotoSection(BuildContext context, Size size, XFile? image) 
             width: size.width,
             height: 150,
             child: DottedBorder(
-              radius: Radius.circular(10),
+              radius: const Radius.circular(10),
               borderType: BorderType.RRect,
               color: Colors.blueAccent,
               strokeWidth: 1,
@@ -40,7 +40,7 @@ Padding buildCapturePhotoSection(BuildContext context, Size size, XFile? image) 
                 child: FittedBox(
                   child: image != null
                   ? Image.file(File(image.path), fit: BoxFit.cover)
-                  : Icon(
+                  : const Icon(
                     Icons.camera_enhance_outlined,
                     color: Colors.blueAccent,
                   )
