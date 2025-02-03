@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Container builderHeader() {
+Container buildHeader() {
   return Container(
     height: 50,
     decoration: const BoxDecoration(
