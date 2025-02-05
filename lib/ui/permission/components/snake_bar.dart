@@ -21,7 +21,7 @@ class SnakeBarComponent {
       ),
       backgroundColor: isError ? Colors.red : Colors.blueGrey,
       shape: const StadiumBorder(),
-      behavior: SnackBarBehavior.floating,
+      behavior: SnackBarBehavior.floating
     ));
   }
 }
