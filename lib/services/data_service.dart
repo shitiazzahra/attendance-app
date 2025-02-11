@@ -10,6 +10,7 @@ class DataService {
   }
 
   Future<void> deleteData(String docId) {
+    // mengahapus data dari database
     return dataCollection.doc(docId).delete();
   }
 }

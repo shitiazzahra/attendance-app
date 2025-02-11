@@ -1,4 +1,6 @@
 import 'package:attendance_app/services/data_service.dart';
+import 'package:attendance_app/ui/history/components/attendance_card.dart';
+import 'package:attendance_app/ui/history/components/delete_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +18,7 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Attendance History"),
+        title: const Text("Attendance History"),
       ),
       // type data nya dynamic
       // stream builder untuk membungkus widget secara keseluruhan, digunakan untuk menage UI dengan baik
@@ -37,7 +39,26 @@ class _AttendanceHistoryScreenState extends State<AttendanceHistoryScreen> {
           return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
-              // put attendance dard UI here!
+              return AttendanceHistoryCard(
+                data: data[index].data() as Map<String, dynamic>,
+                onDelete: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => DeleteDialog(
+                      //menjadikan index sebagai id dari data yg ada di db
+                      documentId: data[index].id, 
+                      dataCollection: dataService.dataCollection,
+                      // untuk memperbarui state ketika terjadi penghapusan data dari db
+                      onConfirm: () {
+                        setState(() {
+                          dataService.deleteData(data[index].id);
+                          Navigator.pop(context);
+                        });
+                      },
+                    )
+                  );
+                }
+              );
             },
           );
         },
