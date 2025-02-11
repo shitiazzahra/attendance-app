@@ -31,11 +31,11 @@ class _PermissionScreenState extends State<PermissionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FormHeader(
+              const FormHeader(
                 title: "Permission Request Form",
                 icon: Icons.assignment
               ),
-              FormBody(),
+              const FormBody(),
               SubmitButton(
                 size: size,
                 nameController: TextEditingController(),
